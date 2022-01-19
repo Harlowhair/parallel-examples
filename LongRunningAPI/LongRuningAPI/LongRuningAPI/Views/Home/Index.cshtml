@@ -3,6 +3,66 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4"><span id="total">0</span></h1>
+    requests
 </div>
+<div class="request-container">
+
+</div>
+
+@section Scripts {
+    <script>
+
+        $(function () {
+
+            setTimeout(updateStats, 250);
+
+        });
+
+        function updateStats() {
+            $.getJSON("api/RunningRequests", function (data) {
+                console.log(data);
+                total = data.length;
+
+                $('#total').text(total);
+                $.each(data, function (key, el) {
+                    const req = $('.request#' + el.id);
+                    if (req.length == 0) {
+                        addRequest(el)
+                    } else {
+                        $(req.find('.progress-bar')[0]).width(el.percentComplete + '%');
+                    }
+                });
+
+                //remove complete
+                $('.request').each(function (key, el) {
+                    if (data.find(o => o.id == el.id) == undefined) {
+                        const req = $(el);
+                        $(req.find('.progress-bar')[0]).width('100%');
+                        req.fadeOut(2000, function () { req.remove(); });
+                    }
+                })
+            });
+
+            setTimeout(updateStats, 250);
+        }
+
+        function addRequest(req) {
+            html = `<div class="request" id="${req.id}">`;
+            html += '    <div class="row" >';
+            html += '       <div class="col-2">';
+            html += `           <strong>${req.id}</strong>`;
+            html += '       </div>';
+            html += '       <div class="col-10">';
+            html += '           <div class="progress">';
+            html += `               <div class="progress-bar" role="progressbar" style="width: ${req.percentComplete}%" aria-valuenow="${req.percentComplete}" aria-valuemin="0" aria-valuemax="100"></div>`;
+            html += '           </div>';
+            html += '       </div>';
+            html += '   </div >';
+            html += '</div >';
+
+            $('.request-container').prepend(html);
+        }
+
+    </script>
+}

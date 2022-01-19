@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CoreConsole": {
+      "commandName": "Project",
+      "commandLineArgs": "-v -u https://linkedin.com"
+    }
+  }
+}
