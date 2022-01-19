@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CoreConsole.Services
+namespace CoreConsole.Services.Parallelization
 {
     public interface IParallelTestService
     {

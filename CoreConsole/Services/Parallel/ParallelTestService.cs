@@ -7,31 +7,27 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoreConsole.Services
+namespace CoreConsole.Services.Parallelization
 {
-    public class ParallelTestService : IParallelTestService
+    public class ParallelTestService : BaseParallelService, IParallelTestService
     {
-        private readonly IConsole _console;
-        private readonly HttpClient _httpClient;
 
-
-        public ParallelTestService(IConsole console, IHttpClientFactory clientFactory)
+        public ParallelTestService(IConsole console, IHttpClientFactory clientFactory) : base(console, clientFactory)
         {
-            _console = console;
-            _httpClient = clientFactory.CreateClient();
+
         }
 
         public async Task Invoke()
         {
             var count = 0;
-            while (true)
+            var list = Enumerable.Range(0, 100).ToList();
+            Parallel.ForEach(list, item =>
             {
-                _httpClient.GetAsync($"https://localhost:44372/api/LongRunningRequest?ThreadId=thr{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds().ToString()}&ExternalId=ext{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds().ToString()}");
+                LongRunningRequest();
                 count++;
                 _console.WriteLine($"Request {count} sent");
+            });
 
-                Console.ReadLine();
-            }
         }
     }
 }

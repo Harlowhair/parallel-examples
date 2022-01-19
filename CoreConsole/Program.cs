@@ -6,6 +6,7 @@ using CoreConsole.Config;
 using CoreConsole.Data;
 using CoreConsole.Scraping;
 using CoreConsole.Services;
+using CoreConsole.Services.Parallelization;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;

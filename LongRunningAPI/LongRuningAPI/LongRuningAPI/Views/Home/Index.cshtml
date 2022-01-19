@@ -21,7 +21,6 @@
 
         function updateStats() {
             $.getJSON("api/RunningRequests", function (data) {
-                console.log(data);
                 total = data.length;
 
                 $('#total').text(total);
@@ -39,7 +38,7 @@
                     if (data.find(o => o.id == el.id) == undefined) {
                         const req = $(el);
                         $(req.find('.progress-bar')[0]).width('100%');
-                        req.fadeOut(2000, function () { req.remove(); });
+                        req.fadeOut(500 , function () { req.remove(); });
                     }
                 })
             });

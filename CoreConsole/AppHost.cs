@@ -1,5 +1,6 @@
 ﻿using CoreConsole.Scraping;
 using CoreConsole.Services;
+using CoreConsole.Services.Parallelization;
 using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;

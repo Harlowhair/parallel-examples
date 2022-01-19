@@ -21,7 +21,7 @@ namespace LongRuningAPI.Controllers
 
         public async Task<IActionResult> LongRunningRequest(LongRunningRequest request)
         {
-            var executionTime = new Random().Next(5, 10);
+            var executionTime = new Random().Next(10, 20);
 
             var longRequest = new LongRequest()
             {
