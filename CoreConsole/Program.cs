@@ -61,6 +61,8 @@ namespace CoreConsole
                 .AddSingleton<IQueueService, QueueService>()
                 .AddSingleton<IPuppeteerService, PuppeteerService>()
                 .AddSingleton<IParallelTestService, ParallelTestService>()
+                .AddSingleton<IParallelForEachService, ParallelForEachService>()
+                .AddSingleton<IParallelSempahoreService, ParallelSempahoreService>()
                 .AddDbContext<DataContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly(typeof(DataContext).Assembly.GetName().Name)))
                 .AddHttpClient();
 

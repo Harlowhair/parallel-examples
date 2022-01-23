@@ -20,13 +20,18 @@ namespace CoreConsole.Services.Parallelization
         public async Task Invoke()
         {
             var count = 0;
-            var list = Enumerable.Range(0, 100).ToList();
-            Parallel.ForEach(list, item =>
+            while(true)
             {
-                LongRunningRequest();
+                Task.Run(() =>
+                {
+                    LongRunningRequest();
+                });
+
+
                 count++;
                 _console.WriteLine($"Request {count} sent");
-            });
+                Console.ReadLine();
+            }
 
         }
     }
