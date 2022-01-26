@@ -2,20 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4"><span id="total">0</span></h1>
-    requests
-</div>
-<div class="request-container">
+<div class="row">
+    <div class="text-center col-6">
+        <h1 class="display-4"><span id="total">0</span></h1>
+    </div>
+    <div class="text-center col-6 requests">
+        <h3>Running Requests</h3>
+        <div class="request-container">
 
+        </div>
+    </div>
 </div>
-
 @section Scripts {
     <script>
 
         $(function () {
 
-            setTimeout(updateStats, 250);
+            setTimeout(updateStats, 2000);
 
         });
 

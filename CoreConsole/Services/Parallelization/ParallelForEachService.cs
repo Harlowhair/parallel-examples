@@ -27,5 +27,18 @@ namespace CoreConsole.Services.Parallelization
 
         }
 
+        public async Task CPUBound()
+        {
+            var list = Enumerable.Range(0, 100).ToList();
+
+            Parallel.ForEach(list, item =>
+            {
+                LongRunningRequest();
+                _console.WriteLine($"Request {item} sent");
+            });
+
+
+        }
+
     }
 }

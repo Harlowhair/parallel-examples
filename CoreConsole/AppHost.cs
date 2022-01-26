@@ -17,13 +17,15 @@ namespace CoreConsole
         private readonly IParallelTestService _parallelTestService;
         private readonly IParallelForEachService _parallelForEachService;
         private readonly IParallelSempahoreService _parallelSempahoreService;
+        private readonly IParallelQueueService _parallelQueueService;
 
-        public AppHost(IConsole console, IParallelTestService parallelTestService, IParallelForEachService parallelForEachService, IParallelSempahoreService parallelSempahoreService)
+        public AppHost(IConsole console, IParallelTestService parallelTestService, IParallelForEachService parallelForEachService, IParallelSempahoreService parallelSempahoreService, IParallelQueueService parallelQueueService)
         {
             _console = console;
             _parallelTestService = parallelTestService;
             _parallelForEachService = parallelForEachService;
             _parallelSempahoreService = parallelSempahoreService;
+            _parallelQueueService = parallelQueueService;
         }
 
         #region Command Line Options
@@ -41,9 +43,11 @@ namespace CoreConsole
         //Entry point
         private async Task<int> OnExecute(CancellationToken cancellationToken)
         {
-
-            await _parallelSempahoreService.Invoke();
-
+            await _parallelTestService.Invoke();
+            //await _parallelForEachService.Invoke();
+            //await _parallelSempahoreService.Invoke();
+            //await _parallelQueueService.FillQueue(100);
+            //await _parallelQueueService.ProcessQueue();
             return 0;
         }
 

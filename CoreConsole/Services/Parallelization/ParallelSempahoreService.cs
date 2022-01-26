@@ -30,20 +30,20 @@ namespace CoreConsole.Services.Parallelization
         public async Task Invoke()
         {
             var list = Enumerable.Range(0, 30).ToList();
-
+            var tasks = new List<Task>();
             //No error handling for brevity - in reality semaphore should be released in a finally clause
             foreach (var i in list)
             {
                 await semaphore.WaitAsync();
-                Task.Run(() =>
+                tasks.Add(Task.Run(() =>
                 {
                     LongRunningRequest();
                     semaphore.Release();
-                });
+                }));
                 _console.WriteLine($"Request {i} sent");
             }
 
-            while (true) { }
+            await Task.WhenAll(tasks);
 
         }
     }

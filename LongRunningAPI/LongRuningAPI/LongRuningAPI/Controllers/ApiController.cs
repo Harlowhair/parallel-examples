@@ -19,6 +19,7 @@ namespace LongRuningAPI.Controllers
             _dataContext = dataContext;
         }
 
+
         public async Task<IActionResult> LongRunningRequest(LongRunningRequest request)
         {
             var executionTime = new Random().Next(5, 10);

@@ -33,6 +33,17 @@ namespace CoreConsole.Services.Parallelization
             return response.StatusCode.ToString() ;
         }
 
+        public string LongRunningRequestCPUBound()
+        {
+            string response = "";
+            while (response == "")
+            {
+                response = _httpClient.GetAsync($"https://localhost:44372/api/LongRunningRequest?ThreadId=thr{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds().ToString()}&ExternalId=ext{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds().ToString()}").Result.StatusCode.ToString();
+            }
+ 
+            return response;
+        }
+
 
     }
 }

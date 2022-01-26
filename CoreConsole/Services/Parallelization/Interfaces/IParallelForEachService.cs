@@ -5,5 +5,6 @@ namespace CoreConsole.Services.Parallelization
     public interface IParallelForEachService
     {
         Task Invoke();
+        Task CPUBound();
     }
 }
